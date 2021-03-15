@@ -1,11 +1,5 @@
 matrix:
   include:
-    - stage: test
-      language: node_js
-      node_js: 11.14.0
-      install: npm ci
-      script: npm run flow
-
     - stage: build_android
       language: android
       jdk: openjdk8
