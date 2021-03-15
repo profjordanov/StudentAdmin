@@ -10,7 +10,7 @@ sudo: false
 
 branches:
   only:
-  - master
+  - main
 
 install:
   - npm cache clean
