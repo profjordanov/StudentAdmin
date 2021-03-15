@@ -16,7 +16,6 @@ install:
   - npm install -g cordova
 
 before_script:
-  - cordova platform rm android
   - cordova platform add android
 
 script:
