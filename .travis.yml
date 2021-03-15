@@ -8,11 +8,8 @@ cache:
   
 branches:
   only:
-  - main
+  - main 
   
-before_install:
-  - npm i -g npm  
-
 install:
   - npm cache clean
   - npm install
