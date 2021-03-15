@@ -16,7 +16,7 @@ install:
   - npm install -g cordova
 
 before_script:
-  - cordova platform add android
+  - cordova platform add android --nofetch
 
 script:
   - cordova prepare
