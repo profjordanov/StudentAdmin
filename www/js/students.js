@@ -46,3 +46,18 @@ function loadStudents() {
         $("#student-faculty-number").text(student.facultyNumber);
     }
 }
+
+function getPicutre() {
+    navigator.camera.getPicture(succeededCameraCallback, failedCameraCallback, {
+        quality: 25,
+        destinationType: Camera.DestinationType.DATA_URL
+    });
+}
+
+function succeededCameraCallback(imageData) {
+    $('#myImage').attr('src', 'data:image/jpeg;base64,' + imageData);
+}
+
+function failedCameraCallback(message) {
+    alert(message);
+}
