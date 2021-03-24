@@ -33,7 +33,7 @@
         <div data-role="header">
             <h1>Student Admin</h1>
         </div>
-        <ul data-role="listview">
+        <ul data-role="listview" id="results">
             <li><a href="#detailsPage">Student Details</a></li>
         </ul>
 
@@ -44,7 +44,7 @@
     </div>
     <!-- home page -->
 
-    <!-- page 1 -->
+    <!--detailsPage -->
     <div data-role="page" id="detailsPage">
         <div data-role="header">
             <a href="#" data-icon="back" data-rel="back" title="Go back">Back</a>
@@ -58,8 +58,21 @@
             <p id="student-faculty-number">Student Faculty Number</p>
         </div>
 
+        <div data-role="footer">
+            <p>Make picture
+                <a href="#picturePage"></a>
+            </p>
+        </div>
     </div>
-    <!-- /page1 -->
+    <!-- /detailsPage -->
+
+    <!-- picture Page -->
+    <div data-role="page" id="picturePage">
+        <div>
+
+        </div>
+    </div>
+
     <script src="cordova.js"></script>
     <script type="text/javascript" src="js/jquery-1.11.1.min.js" id="cordova-jquery"></script>
     <script type="text/javascript" id="jqm-trans-disable">
@@ -71,6 +84,7 @@
     </script>
     <script type="text/javascript" src="js/jquery-1.5.0.mobile.min.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/students.js"></script>
 </body>
 
 </html>
