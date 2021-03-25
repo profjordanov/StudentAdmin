@@ -61,3 +61,41 @@ function succeededCameraCallback(imageData) {
 function failedCameraCallback(message) {
     alert(message);
 }
+
+function sendPictureRequest() {
+    $.mobile.loading("show");
+
+    let base64Img = $("#myImage").attr('src');
+    let facultyNumber = $('#faculty-number').val();
+    let password = $('#password').val();
+
+    let requestData = {
+        FacultyNumber: facultyNumber,
+        Password: password,
+        Picture: base64Img
+    };
+
+    console.log({ requestData });
+
+    $.ajax({
+        type: "PUT",
+        url: baseSurviceUrl + "picture",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify(requestData),
+        success: function() {
+            $.mobile.loading("hide");
+            alert("Successfully added!");
+            loadHomePage();
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $.mobile.loading("hide");
+            loadHomePage();
+        }
+    });
+}
+
+function loadHomePage() {
+    const homePage = $("#detailsPage");
+    $.mobile.pageContainer.pagecontainer("change", homePage, {});
+}
