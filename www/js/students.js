@@ -9,30 +9,29 @@ function loadStudents() {
     $.ajax({
         type: "GET",
         url: baseSurviceUrl,
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader("Authorization", "Basic " + base64Auth)
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Basic " + base64Auth);
         },
-        success: function(students) {
+        success: function (students) {
             $.mobile.loading("hide");
-            console.log({ students });
+            console.log({students});
             displayStudents(students);
         },
-        error: function() {
-            $.mobile.loading("hide");
-            alert("Error");
+        error: function () {
+            alert("error");
         }
     });
 
     function displayStudents(students) {
         $("#results").empty();
-
-        for (let student of students) {
+        
+        for(let student of students){
             $('#results').append(
                 $('<li>').append(
                     $('<a>')
                     .attr('href', '#detailsPage')
-                    .addClass("ui-btn ui-btn-icon-right ui-icon-carat-r")
-                    .click(function() {
+                    .addClass('ui-btn ui-btn-icon-right ui-icon-carat-r')
+                    .click(function () {
                         setStudentDetails(student);
                     })
                     .append(student.fullName)
@@ -42,30 +41,39 @@ function loadStudents() {
     }
 
     function setStudentDetails(student) {
-        $("#student-name").text(student.fullName);
-        $("#student-faculty-number").text(student.facultyNumber);
+        $('#student-name').text(student.fullName);
+        $('#student-faculty-number').text(student.facultyNumber);
+        $('#student-email').text(student.email);
+        $('#student-username').text(student.userName);
+        $('#student-picture-view').attr('src', student.base64EncodePicture);
     }
 }
 
-function getPicutre() {
-    navigator.camera.getPicture(succeededCameraCallback, failedCameraCallback, {
-        quality: 25,
-        destinationType: Camera.DestinationType.DATA_URL
-    });
+function getPicture() {
+    navigator.camera.getPicture(
+        successCameraCallback,
+        failedCamCallback,
+        {
+            quality: 25,
+            destinationType: Camera.DestinationType.DATA_URL
+        }
+    );
 }
 
-function succeededCameraCallback(imageData) {
+function successCameraCallback(imageData) {
     $('#myImage').attr('src', 'data:image/jpeg;base64,' + imageData);
+    $('#myImage').css('display', 'block');
+    $('#myImage').show();
 }
 
-function failedCameraCallback(message) {
+function failedCamCallback(message) {
     alert(message);
 }
 
 function sendPictureRequest() {
-    $.mobile.loading("show");
+    $.mobile.loading('show');
 
-    let base64Img = $("#myImage").attr('src');
+    let base64Img = $('#myImage').attr('src');
     let facultyNumber = $('#faculty-number').val();
     let password = $('#password').val();
 
@@ -74,8 +82,7 @@ function sendPictureRequest() {
         Password: password,
         Picture: base64Img
     };
-
-    console.log({ requestData });
+    console.log(requestData);
 
     $.ajax({
         type: "PUT",
@@ -83,19 +90,19 @@ function sendPictureRequest() {
         contentType: "application/json",
         dataType: "json",
         data: JSON.stringify(requestData),
-        success: function() {
-            $.mobile.loading("hide");
-            alert("Successfully added!");
+        success: function () {
+            $.mobile.loading('hide');
             loadHomePage();
         },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            $.mobile.loading("hide");
+        error: function () {
+            $.mobile.loading('hide');
             loadHomePage();
         }
     });
 }
 
 function loadHomePage() {
-    const homePage = $("#detailsPage");
+    const homePage = $("#homePage");
     $.mobile.pageContainer.pagecontainer("change", homePage, {});
 }
+
